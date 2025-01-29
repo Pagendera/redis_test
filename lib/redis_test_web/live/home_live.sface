@@ -1,0 +1,94 @@
+<div class="flex flex-row border-b-[0.063rem] border-beerus pt-5 pb-4 relative gap-3">
+  <Button on_click="modal_create_open" class="bg-bulma text-goku">Add New Pair</Button>
+</div>
+<Table items={pair <- @pairs} selected={nil}>
+    <Column name="key" label="Key">
+        {pair["key"]}
+    </Column>
+    <Column name="name" label="Value">
+        {pair["value"]}
+    </Column>
+    <Column class="flex flex-row justify-end last:rounded-0">
+        <IconButton class="mr-3" icon="generic_edit" on_click="modal_upd_open" value={pair["key"]} variant="ghost" />
+        <IconButton icon="generic_delete" on_click="modal_del_open" value={pair["key"]} variant="ghost" />
+    </Column>
+</Table>
+<Modal id="modal_create" is_open={@create_modal_open} on_close="do_nothing">
+  <Modal.Backdrop />
+  <Modal.Panel class="w-full max-w-lg rounded-moon-s-xs">
+    <div class="border-b-[0.063rem] border-beerus pt-5 pb-4 px-6 relative">
+      <h3 class="text-moon-18 text-bulma font-medium">
+        Create New Pair
+      </h3>
+      <IconButton
+        icon="controls_close"
+        variant="ghost"
+        on_click="modal_create_close"
+        class="absolute top-3 right-3"
+      />
+    </div> 
+    <div class="px-6 py-4">
+      <Form for={@form_create} submit="create">
+        <Field field={:key} label="Key">
+          <Input placeholder="Pair Key" />
+        </Field>
+        <Field field={:value} label="Value">
+          <Input placeholder="Pair Value" />
+        </Field>
+        <div class="flex gap-2 p-4 justify-end pt-2">
+          <Button variant="outline" on_click="modal_create_close" left_icon="controls_close">Cancel</Button>
+          <Button
+            type="submit"
+            left_icon="controls_plus"
+            class="bg-bulma text-goku"
+          >Create</Button>
+        </div>
+      </Form>
+    </div>
+  </Modal.Panel>
+</Modal>
+<Modal id="modal_delete" is_open={@del_modal_open} on_close="do_nothing">
+    <Modal.Backdrop />
+    <Modal.Panel>
+        <div class="border-b-[0.063rem] border-beerus pt-5 pb-4 px-6 relative">
+            <h3 class="text-moon-18 text-bulma font-medium">
+                Delete Pair {@pair["key"]}?
+            </h3>
+        </div>
+        <div class="flex gap-2 p-4 justify-end pt-2">
+            <Button variant="outline" on_click="modal_del_close" left_icon="controls_close">Cancel</Button>
+            <Button on_click="delete" left_icon="generic_delete" value={@pair["key"]} class="bg-bulma text-goku">Delete</Button>
+        </div>
+    </Modal.Panel>
+</Modal>
+<Modal id="modal_update" is_open={@upd_modal_open} on_close="do_nothing">
+    <Modal.Backdrop />
+    <Modal.Panel>
+        <div class="border-b-[0.063rem] border-beerus pt-5 pb-4 px-6 relative">
+            <h3 class="text-moon-18 text-bulma font-medium">
+                Update Pair {@pair["key"]}
+            </h3>
+        </div>
+        <div class="px-6 py-4">
+          <Form for={@form_update} submit="update" class="flex flex-col gap-3">
+            <Field field={:old_key} class="hidden">
+              <Input value={@pair["key"]}/>
+            </Field>
+            <Field field={:key} label="Key">
+              <Input placeholder="Key" />
+            </Field>
+            <Field field={:value} label="Value">
+              <Input placeholder="Value" />
+            </Field>
+            <div class="flex gap-2 p-4 justify-end pt-2">
+              <Button variant="outline" on_click="modal_upd_close" left_icon="controls_close_small">Cancel</Button>
+              <Button
+                type="submit"
+                left_icon="generic_edit"
+                class="bg-bulma text-goku"
+              >Update</Button>
+            </div>
+          </Form>
+        </div>
+    </Modal.Panel>
+</Modal>
