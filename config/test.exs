@@ -10,6 +10,9 @@ config :redis_test, RedisTestWeb.Endpoint,
 # In test we don't send emails
 config :redis_test, RedisTest.Mailer, adapter: Swoosh.Adapters.Test
 
+config :redis_test, RedisTest.Redix,
+  host: "localhost",
+  port: 6381
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
 
