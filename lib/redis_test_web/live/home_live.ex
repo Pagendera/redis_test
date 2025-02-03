@@ -170,6 +170,7 @@ defmodule RedisTestWeb.HomeLive do
          {:ok, _updated_pair} <- Pairs.update_pair(db_conn, old_key, new_key, new_value) do
       updated_pairs = Pairs.list_pairs(db_conn)
       Modal.close("modal_update")
+      Process.send_after(self(), :clear_flash, 3000)
       {:noreply,
        socket
        |> assign(
@@ -179,7 +180,8 @@ defmodule RedisTestWeb.HomeLive do
        ) |> put_flash(:info, "Pair Updated!")
       }
     else
-      {:error, msg} -> {:noreply, socket |> put_flash(:error, msg)}
+      {:error, msg} ->  Process.send_after(self(), :clear_flash, 3000)
+                        {:noreply, socket |> put_flash(:error, msg)}
     end
   end
 

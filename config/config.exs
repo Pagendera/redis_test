@@ -7,7 +7,11 @@
 # General application configuration
 import Config
 
-import_config "../deps/moon/config/surface.exs"
+moon_config_path = "#{File.cwd!()}/deps/moon/config/surface.exs"
+
+if File.exists?("#{moon_config_path}") do
+    import_config(moon_config_path)
+  end
 
 
 config :surface, :components, [
