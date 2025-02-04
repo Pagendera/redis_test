@@ -28,7 +28,7 @@
       />
     </div> 
     <div class="px-6 py-4">
-      <Form for={@form_create} submit="create">
+      <Form id="form-create" for={@form_create} submit="create">
         <Field field={:key} label="Key">
           <Input placeholder="Pair Key" />
         </Field>
@@ -70,7 +70,7 @@
             </h3>
         </div>
         <div class="px-6 py-4">
-          <Form for={@form_update} submit="update" class="flex flex-col gap-3">
+          <Form id="form-update" for={@form_update} submit="update" class="flex flex-col gap-3">
             <Field field={:old_key} class="hidden">
               <Input value={@pair["key"]}/>
             </Field>

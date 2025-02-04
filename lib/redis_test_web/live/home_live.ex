@@ -19,7 +19,12 @@ defmodule RedisTestWeb.HomeLive do
   data(del_modal_open, :boolean, default: false)
   data(upd_modal_open, :boolean, default: false)
   def mount(_params, _session, socket) do
-    {:ok, db_conn} = Redix.start_link(host: "localhost", port: 6380)
+    redis_config = Application.get_env(:redis_test, :redis)
+
+    host = redis_config[:host]
+    port = redis_config[:port]
+
+    {:ok, db_conn} = Redix.start_link(host: host, port: port)
     {
       :ok,
       socket

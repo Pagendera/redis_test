@@ -19,6 +19,9 @@ config :redis_test, RedisTestWeb.Endpoint,
     tailwind: {Tailwind, :install_and_run, [:redis_test, ~w(--watch)]}
   ]
 
+config :redis_test, :redis,
+  host: "localhost",
+  port: 6380
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
